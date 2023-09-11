@@ -1,5 +1,15 @@
 const express = require("express");
+const morgan = require("morgan");
+const fs = require("fs");
+const path = require("path");
+
 const app = express();
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
+  flags: "a",
+});
+
+app.use(morgan("common"));
 
 app.use(express.static("public"));
 
@@ -8,7 +18,8 @@ app.get("/movies", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Welcome to myFlix");
+  let responseText = "Welcome to myFlix";
+  res.send(responseText);
 });
 
 app.listen(8080, () => {
