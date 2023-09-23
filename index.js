@@ -5,7 +5,19 @@ const express = require("express"),
 const morgan = require("morgan");
 const fs = require("fs");
 const path = require("path");
+const mongoose = require("mongoose");
+const Models = require("./models.js");
 
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect("mongodb://localhost127.0.0.1/cfDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
@@ -169,17 +181,54 @@ app.get("/movies/directors/:directorName", (req, res) => {
 });
 
 //Create - Add new user
-app.post("/users", (req, res) => {
-  const newUser = req.body;
-
-  if (newUser.name) {
-    newUser.id = uuid.v4();
-    users.push(newUser);
-    res.status(201).json(newUser);
-  } else {
-    res.status(400).send("users need names");
-  }
+/* 
+We'll expect JSON in this format
+{
+  ID: Integer,
+  Username: String,
+  Password: String,
+  Email: String,
+  Birthday: Date
+}
+*/
+app.post("/users", async (req, res) => {
+  await Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + "already exists");
+      } else {
+        Users.create({
+          Username: req.body.Username,
+          Password: req.body.Password,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday,
+        })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error: " + error);
+          });
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    });
 });
+// OLD  CODE for above
+// app.post("/users", (req, res) => {
+//   const newUser = req.body;
+
+//   if (newUser.name) {
+//     newUser.id = uuid.v4();
+//     users.push(newUser);
+//     res.status(201).json(newUser);
+//   } else {
+//     res.status(400).send("users need names");
+//   }
+// });
 
 // Update - Allow users to update info, specifically name
 app.put("/users/:id", (req, res) => {
