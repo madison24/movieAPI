@@ -33,9 +33,10 @@
           <td>None</td>
           <td>An array of all movies</td>
         </tr>
+
         <tr>
           <td>Return data about a single movie by title to the user</td>
-          <td>/movies/:title</td>
+          <td>/movies/:Title</td>
           <td>GET</td>
           <td>None</td>
           <td>
@@ -44,62 +45,91 @@
             not.
           </td>
         </tr>
+
         <tr>
           <td>Return data about a movie genre by name/title</td>
-          <td>/movies/:genre</td>
+          <td>/movies/:genres/genreName</td>
           <td>GET</td>
           <td>None</td>
           <td>A JSON object with a description of the movie genre.</td>
         </tr>
+
         <tr>
           <td>Return data about a director by name</td>
-          <td>/movies/:director</td>
+          <td>/movies/:director/directorName</td>
           <td>GET</td>
           <td>None</td>
           <td>A JSON object with a description of the director.</td>
         </tr>
+
         <tr>
           <td>Allow new users to register</td>
           <td>/users/</td>
           <td>POST</td>
           <td>
-            A JSON object with user data including id, name, and favoriteMovies.
+            A JSON object with user data including id, name, and favoriteMovies
+            in this format: We'll expect JSON in this format { "Username":
+            "String", "Password": "String", "Email": "String", "Birthday":
+            "YYYY-MM-DD" }
           </td>
-          <td>A JSON object with user info and computer generated id.</td>
+          <td>
+            A JSON object with user info and computer generated id ins this
+            format : {"Username": "Example1", "Password": "Example1", "Email":
+            "example@email", "Birthday": "YYYY-MM-DDT00:00:00:000Z",
+            "FavoriteMovies": [], "_id": "650f1a656d00041082dfe731", "__v": 0 }
+          </td>
         </tr>
+
         <tr>
           <td>Allow users to update their user information</td>
-          <td>users/:id</td>
+          <td>users/:Username</td>
           <td>PUT</td>
           <td>
             A JSON object with the user info to be changed; should have one or
-            more of the following: {"id":" ", "name":" ", "favoriteMovies":["
-            "]}
+            more of the following: {"Username":" ", "Password":" ", "Email": "
+            ", "Birthday": " ", "FavoriteMovies":[" "] }
           </td>
-          <td>A JSON object with updated user info.</td>
+          <td>
+            A JSON object with updated user info, in this format: { "_id":
+            "650f1a656d00041082dfe731", "Username": "Example1", "Password":
+            "Example1", "Email": "example@email", "Birthday":
+            "YYYY-MM-DDT00:00:00:000Z", "FavoriteMovies": [" "] }
+          </td>
         </tr>
+
         <tr>
           <td>Allow users to add a movie to their list of favorites</td>
-          <td>/users/:info/movies/:movieTitle</td>
+          <td>/users/:Username/movies/:MovieId</td>
           <td>Post</td>
           <td>None</td>
-          <td>A text that the movie has been added to their array.</td>
+          <td>
+            A JSON object with updated user info including added favorite movie,
+            in this format: { "_id": "650f1a656d00041082dfe731", "Username":
+            "Example1", "Password": "Example1", "Email": "example@email",
+            "Birthday": "YYYY-MM-DDT00:00:00:000Z", "FavoriteMovies": [" "] }
+          </td>
         </tr>
+
         <tr>
           <td>Allow users to remove a movie from their list of favorites</td>
-          <td>/users/:info/movies/:movieTitle</td>
+          <td>/users/:Username/movies/:MovieId</td>
           <td>DELETE</td>
           <td>None</td>
           <td>
-            A text confirming the movie has been removed from their array.
+            A JSON object with updated user info including new list of favorite
+            movies, in this format: { "_id": "650f1a656d00041082dfe731",
+            "Username": "Example1", "Password": "Example1", "Email":
+            "example@email", "Birthday": "YYYY-MM-DDT00:00:00:000Z",
+            "FavoriteMovies": [" "] }
           </td>
         </tr>
+
         <tr>
           <td>Allow existing users to deregister</td>
-          <td>/users/:info</td>
+          <td>/users/:Username</td>
           <td>DELETE</td>
           <td>None</td>
-          <td>A text that confirms the user was deleted.</td>
+          <td>Text that confirms the user was deleted.</td>
         </tr>
       </tbody>
     </table>
