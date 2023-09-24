@@ -16,6 +16,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.json());
 
+let auth = require("./auth")(app);
+
+const passport = require("passport");
+require("./passport");
+
 mongoose.connect("mongodb://127.0.0.1/cfDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
