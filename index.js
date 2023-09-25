@@ -8,7 +8,7 @@ const morgan = require("morgan");
 const fs = require("fs");
 const path = require("path");
 
-const { check, validationReult } = require("express-validator");
+const { check, validationResult } = require("express-validator");
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -245,7 +245,9 @@ Which means "opposite of isEmpty" or in plain english "is not empty"
 Or use .isLength({min: 5}) which means minimum value of 5 characters are only allowed.
 */
   [
-    check("Username", "Username is required").isLength({ min: 5 }),
+    check("Username", "Username must be 5 or more characters.").isLength({
+      min: 5,
+    }),
     check(
       "Username",
       "Username contains non alphanumeric characters - not allowed."
@@ -255,7 +257,7 @@ Or use .isLength({min: 5}) which means minimum value of 5 characters are only al
   ],
   async (req, res) => {
     // Check the validation object for errors
-    let errors = validationReult(req);
+    let errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -304,7 +306,9 @@ app.put(
 
   passport.authenticate("jwt", { session: false }),
   [
-    check("Username", "Username is required").isLength({ min: 5 }),
+    check("Username", "Username must be 5 or more characters.").isLength({
+      min: 5,
+    }),
     check(
       "Username",
       "Username contains non alphanumeric characters - not allowed."
@@ -313,7 +317,7 @@ app.put(
     check("Email", "Email does not appear to be valid").isEmail(),
   ],
   async (req, res) => {
-    let errors = validationReult(req);
+    let errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
