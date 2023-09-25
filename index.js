@@ -16,6 +16,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.json());
 
+const cors = require("cors");
+app.use(cors());
+
 let auth = require("./auth")(app);
 
 const passport = require("passport");
