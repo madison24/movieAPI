@@ -1,7 +1,6 @@
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
-const Models = require("./models");
+const Models = require("./models.js");
 const bodyParser = require("body-parser");
 const uuid = require("uuid");
 const morgan = require("morgan");
@@ -13,18 +12,20 @@ const { check, validationResult } = require("express-validator");
 const Movies = Models.Movie;
 const Users = Models.User;
 
+const app = express();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(express.json());
 
 const cors = require("cors");
 app.use(cors());
 
-let auth = require("./auth")(app);
+app.use(express.json());
+
+let auth = require("./auth.js")(app);
 
 const passport = require("passport");
-require("./passport");
+require("./passport.js");
 
 // locally hosted database
 /* mongoose.connect("mongodb://127.0.0.1/cfDB", {
@@ -47,10 +48,11 @@ app.use(morgan("combined", { stream: accessLogStream }));
 // app.use("/documentation", express.static("public"));
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
+/* app.get("/", (req, res) => {
   let responseText = "Welcome to myFlix";
   res.send(responseText);
 });
+*/
 
 /*
 // Return list of all users
