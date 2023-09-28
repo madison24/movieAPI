@@ -26,7 +26,14 @@ let auth = require("./auth")(app);
 const passport = require("passport");
 require("./passport");
 
-mongoose.connect("mongodb://127.0.0.1/cfDB", {
+// locally hosted database
+/* mongoose.connect("mongodb://127.0.0.1/cfDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});  */
+
+// online hosted database
+mongoose.connect("process.env.CONNECTION_URI", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
