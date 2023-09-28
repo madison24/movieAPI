@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-
 const bcrypt = require("bcrypt");
+const passport = require("passport");
 
 let movieSchema = mongoose.Schema({
   Title: { type: String, required: true },
@@ -12,7 +12,10 @@ let movieSchema = mongoose.Schema({
   Director: {
     Name: String,
     Bio: String,
+    Birth: Date,
+    Death: Date,
   },
+
   Actors: [String],
   ImagePath: String,
   Featured: Boolean,

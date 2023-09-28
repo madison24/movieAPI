@@ -1,11 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Models = require("./models.js");
 const bodyParser = require("body-parser");
 const uuid = require("uuid");
 const morgan = require("morgan");
 const fs = require("fs");
 const path = require("path");
+const Models = require("./models.js");
 
 const { check, validationResult } = require("express-validator");
 
@@ -34,10 +34,13 @@ require("./passport.js");
 });  */
 
 // online hosted database
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://mhousman24:passw0rd@cluster0.imvxidj.mongodb.net/Cluster0?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
   flags: "a",
@@ -48,11 +51,10 @@ app.use(morgan("combined", { stream: accessLogStream }));
 // app.use("/documentation", express.static("public"));
 app.use(express.static("public"));
 
-/* app.get("/", (req, res) => {
+app.get("/", (req, res) => {
   let responseText = "Welcome to myFlix";
   res.send(responseText);
 });
-*/
 
 /*
 // Return list of all users
