@@ -34,13 +34,10 @@ require("./passport.js");
 });  */
 
 // online hosted database
-mongoose.connect(
-  "mongodb+srv://mhousman24:passw0rd@cluster0.imvxidj.mongodb.net/Cluster0?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
   flags: "a",
