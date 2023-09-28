@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const Models = require("./models.js");
+const Models = require("./models");
 const bodyParser = require("body-parser");
 const uuid = require("uuid");
 const morgan = require("morgan");
@@ -33,7 +33,7 @@ require("./passport");
 });  */
 
 // online hosted database
-mongoose.connect("process.env.CONNECTION_URI", {
+mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -42,119 +42,15 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
   flags: "a",
 });
 
+app.use(morgan("combined", { stream: accessLogStream }));
+
 // app.use("/documentation", express.static("public"));
 app.use(express.static("public"));
-
-app.use(morgan("combined", { stream: accessLogStream }));
 
 app.get("/", (req, res) => {
   let responseText = "Welcome to myFlix";
   res.send(responseText);
 });
-
-let users = [
-  {
-    id: 1,
-    name: "Kim",
-    favoriteMovies: [],
-  },
-  {
-    id: 2,
-    name: "Joe",
-    favoriteMovies: ["Forgetting Sarah Marshall"],
-  },
-];
-
-let movies = [
-  {
-    Title: "Pride and Prejudice",
-    Description:
-      "Sparks fly when spirited Elizabeth Bennet meets single, rich, and proud Mr. Darcy. But Mr. Darcy reluctantly finds himself falling in love with a woman beneath his class. Can each overcome their own pride and prejudice?",
-    Genre: {
-      Name: "Historical Romance",
-      Description:
-        "Also known as epic romance, this is a romantic story with a historical period setting, normally with a turbulent backdrop of war, revolution, or tragedy.",
-    },
-    Director: {
-      Name: "Joe Wright",
-      Bio: "Joe Wright is an English film director. He is best known for Pride & Prejudice (2005), Atonement (2007), Anna Karenina (2012), and Darkest Hour (2017)",
-      Birth: 1972.0,
-    },
-    ImageURL:
-      "https://www.imdb.com/name/nm0942504/mediaviewer/rm2925501184/?ref_=nm_ov_ph",
-    Featured: false,
-  },
-  {
-    Title: "Forgetting Sarah Marshall",
-    Description:
-      "Devastated Peter takes a Hawaiian vacation in order to deal with the recent break-up with his TV star girlfriend, Sarah. Little does he know, Sarah's traveling to the same resort as her ex - and she's bringing along her new boyfriend.",
-    Genre: {
-      Name: "Comedy",
-      Description:
-        "A comedy film is a category of film which emphasizes on humor. These films are designed to make the audience laugh in amusement",
-    },
-    Director: {
-      Name: "Nicholas Stoller",
-      Bio: "Nicholas Stoller is an English-American screenwriter and director. He is known best for directing the 2008 comedy Forgetting Sarah Marshall, and writing/directing its 2010 spin-off/sequel, Get Him to the Greek.",
-      Birth: 1976.0,
-    },
-    ImageURL:
-      "https://www.imdb.com/name/nm0831557/mediaviewer/rm1263192576/?ref_=nm_ov_ph",
-    Featured: false,
-  },
-  {
-    Title: "Lost in Translation",
-    Description:
-      "A faded movie star and a neglected young woman form an unlikely bond after crossing paths in Tokyo.",
-    Genre: {
-      Name: "Drama",
-      Description:
-        "In film and television, drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone.",
-    },
-    Director: {
-      Name: "Sofia Coppola",
-      Bio: "Sofia Coppola was born on May 14, 1971 in New York City, New York, USA as Sofia Carmina Coppola. She is a director, known for Somewhere (2010), Lost in Translation (2003), and Marie Antoinette (2006).",
-      Birth: 1971.0,
-    },
-    ImageURL:
-      "https://www.imdb.com/name/nm0001068/mediaviewer/rm890690560/?ref_=nm_ov_ph",
-    Featured: false,
-  },
-  {
-    Title: "Lady Bird",
-    Description:
-      "In 2002, an artistically inclined 17-year-old girl comes of age in Sacramento, California.",
-    Genre: {
-      Name: "Comedy",
-      Description:
-        "A comedy film is a category of film which emphasizes on humor. These films are designed to make the audience laugh in amusement",
-    },
-    Director: {
-      Name: "Greta Gerwig",
-      Bio: "Greta Gerwig is an American actress, playwright, screenwriter, and director. She has collaborated with Noah Baumbach on several films, including Greenberg (2010), Frances Ha (2012), for which she earned a Golden Globe nomination, and Mistress America (2015)",
-      Birth: 1983.0,
-    },
-    ImageURL: "https://www.imdb.com/name/nm1950086/?ref_=nmbio_ov_i",
-    Featured: false,
-  },
-  {
-    Title: "About Time",
-    Description:
-      "At the age of 21, Tim discovers he can travel in time and change what happens and has happened in his own life. His decision to make his world a better place by getting a girlfriend turns out not to be as easy as you might think.",
-    Genre: {
-      Name: "Drama",
-      Description:
-        "In film and television, drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone.",
-    },
-    Director: {
-      Name: "Richard Curtis",
-      Bio: "Richard Curtis was born on November 8, 1956 in Wellington, New Zealand. He is a writer and producer, known for Love Actually (2003), Four Weddings and a Funeral (1994) and About Time (2013).",
-      Birth: 1956.0,
-    },
-    ImageURL: "https://www.imdb.com/name/nm0193485/?ref_=nmbio_ov_i",
-    Featured: false,
-  },
-];
 
 /*
 // Return list of all users
