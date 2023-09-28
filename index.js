@@ -42,7 +42,8 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
   flags: "a",
 });
 
-app.use("/documentation", express.static("public"));
+// app.use("/documentation", express.static("public"));
+app.use(express.static("public"));
 
 app.use(morgan("combined", { stream: accessLogStream }));
 
