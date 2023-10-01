@@ -61,7 +61,6 @@ app.get("/", (req, res) => {
   res.send(responseText);
 });
 
-/*
 // Return list of all users
 app.get("/users", async (req, res) => {
   await Users.find()
@@ -73,7 +72,6 @@ app.get("/users", async (req, res) => {
       res.status(500).send("Error: " + err);
     });
 });
-*/
 
 // Read - return a list of all movies
 app.get(
