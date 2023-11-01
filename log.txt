@@ -166,3 +166,4 @@ Timestamp: Fri Sep 08 2023 11:21:16 GMT-0500 (Central Daylight Time)
 ::1 - - [25/Sep/2023:23:31:42 +0000] "PUT /users/GiGii HTTP/1.1" 401 - "-" "PostmanRuntime/7.33.0"
 ::1 - - [25/Sep/2023:23:33:52 +0000] "PUT /users/GiGii HTTP/1.1" 200 163 "-" "PostmanRuntime/7.33.0"
 ::1 - - [25/Sep/2023:23:34:39 +0000] "PUT /users/GiGii HTTP/1.1" 422 334 "-" "PostmanRuntime/7.33.0"
+127.0.0.1 - - [01/Nov/2023:21:53:40 +0000] "GET /users/test1 HTTP/1.1" 201 224 "-" "PostmanRuntime/7.34.0"

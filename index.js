@@ -28,25 +28,25 @@ const passport = require("passport");
 require("./passport.js");
 
 // locally hosted database
-/* mongoose.connect("mongodb://127.0.0.1/cfDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});  */
+// mongoose.connect("mongodb://127.0.0.1/cfDB", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
 // online hosted database
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect(process.env.CONNECTION_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
-/*mongoose.connect(
+mongoose.connect(
   "mongodb+srv://mhousman24:passw0rd@cluster0.imvxidj.mongodb.net/Cluster0?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }
 );
-*/
+
 const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
   flags: "a",
 });
@@ -64,6 +64,17 @@ app.get("/", (req, res) => {
 // Return list of all users
 app.get("/users", async (req, res) => {
   await Users.find()
+    .then((users) => {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+app.get("/users/:Username", async (req, res) => {
+  await Users.findOne({ Username: req.params.Username })
     .then((users) => {
       res.status(201).json(users);
     })
