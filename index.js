@@ -215,7 +215,7 @@ Or use .isLength({min: 5}) which means minimum value of 5 characters are only al
 app.put(
   "/users/:Username",
 
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   [
     check("Username", "Username must be 5 or more characters.").isLength({
       min: 5,
