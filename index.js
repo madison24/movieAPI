@@ -73,6 +73,7 @@ app.get("/users", async (req, res) => {
     });
 });
 
+// Get- one user by username
 app.get("/users/:Username", async (req, res) => {
   await Users.findOne({ Username: req.params.Username })
     .then((users) => {
@@ -279,7 +280,7 @@ app.post(
     await Users.findOneAndUpdate(
       { Username: req.params.Username },
       {
-        $push: { FavoriteMovies: req.params.MovieID },
+        $push: { FavoriteMovies: req.params.MovieId },
       },
       { new: true }
     ) // This line makes sure that the updated document is returned
