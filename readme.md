@@ -1,6 +1,6 @@
 # Server-side API 
 
-### myFlix API  will provide users with access to information about different movies, directors, and genres. Users will be able to sign up, update their personal information, and create a list of their favorite movies.
+myFlix API  provides users with access to information about different movies, directors, and genres. Users will be able to sign up, update their personal information, and create a list of their favorite movies.
 
 ## Screenshot 
 ### Postman - return a list of all movies
