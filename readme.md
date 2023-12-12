@@ -1,8 +1,18 @@
-Read Me
-Objective:
-myFlix will provide users with access to information about different
-movies, directors, and genres. Users will be able to sign up, update their
+# Server-side API 
+
+## myFlix API  will provide users with access to information about different movies, directors, and genres. Users will be able to sign up, update their
 personal information, and create a list of their favorite movies.
+
+## Screenshot 
+### Postman - return a list of all movies
+![screenshot of the project](./images/all-movies.png)
+
+### PgAdmin- return a list of all movies in a genre
+![screenshot of the project](./images/all-genre.png)
+
+### Mongosh- delete user
+![screenshot of the project](./images/delete-user.png)
+
 
 Features: 
 - Return a list of ALL movies to the user
